@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vancouver 26™ | Watch Parties</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        fifaDark: '#0f172a', // Slate 900
+                        fifaNeon: '#00ff87',
+                        fifaPurple: '#7c3aed',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(to right, #00ff87, #00b8ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #7c3aed, #e11d48);
+        }
+    </style>
+</head>
+<body class="bg-fifaDark text-white min-h-screen relative overflow-x-hidden">
+
+    <!-- Decorative Background Blurs -->
+    <div class="absolute top-0 left-0 w-96 h-96 bg-fifaPurple rounded-full mix-blend-multiply filter blur-3xl opacity-20 -z-10 animate-blob"></div>
+    <div class="absolute top-0 right-0 w-96 h-96 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 -z-10"></div>
+
+    <!-- Navbar -->
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-black tracking-tighter">
+            YVR<span class="gradient-text">26</span> PARTIES
+        </div>
+        <button onclick="document.getElementById('hostModal').classList.remove('hidden')" class="bg-white text-fifaDark px-6 py-2 rounded-full font-bold hover:bg-gray-200 transition">
+            <i class="fas fa-plus mr-2"></i> Host a Party
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="container mx-auto px-6 py-16 text-center">
+        <h1 class="text-5xl md:text-7xl font-black mb-6 uppercase tracking-tight">
+            The Beautiful Game.<br>
+            <span class="gradient-text">Right in Vancouver.</span>
+        </h1>
+        <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+            Whether you missed out on tickets to BC Place or just want to scream at the TV with fellow fans, find or host a local World Cup watch party.
+        </p>
+        
+        <!-- Official Matches Banner -->
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 max-w-4xl mx-auto backdrop-blur-sm">
+            <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Official BC Place Matches</h3>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="bg-fifaPurple/20 text-purple-300 px-3 py-1 rounded-full text-sm border border-fifaPurple/30">Jun 13: AUS vs TUR</span>
+                <span class="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-sm border border-red-500/30">Jun 18: CAN vs QAT</span>
+                <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-500/30">Jun 21: NZL vs EGY</span>
+                <span class="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-sm border border-red-500/30">Jun 24: SUI vs CAN</span>
+                <span class="bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-full text-sm border border-yellow-500/30">Jun 26: NZL vs BEL</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Parties Grid -->
+    <main class="container mx-auto px-6 pb-24">
+        <div class="flex justify-between items-end mb-8">
+            <h2 class="text-3xl font-bold">Upcoming Parties</h2>
+        </div>
+        
+        <div id="partiesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Party cards injected via JS -->
+        </div>
+    </main>
+
+    <!-- Host a Party Modal -->
+    <div id="hostModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-800 rounded-3xl p-8 max-w-md w-full border border-slate-700 relative">
+            <button onclick="document.getElementById('hostModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <h2 class="text-2xl font-bold mb-6">Create a Watch Party</h2>
+            
+            <form id="hostForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-gray-300">Host Name</label>
+                    <input type="text" id="hostName" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-fifaNeon">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-gray-300">Party Title</label>
+                    <input type="text" id="partyTitle" placeholder="e.g. Canada Kickoff BBQ" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-fifaNeon">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-gray-300">Neighborhood / Location</label>
+                    <input type="text" id="partyLocation" placeholder="e.g. Kitsilano" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-fifaNeon">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-gray-300">Which Match?</label>
+                    <select id="partyMatch" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-fifaNeon">
+                        <option value="June 13: Australia vs. Türkiye">June 13: Australia vs. Türkiye</option>
+                        <option value="June 18: Canada vs. Qatar">June 18: Canada vs. Qatar (Canada Plays!)</option>
+                        <option value="June 21: New Zealand vs. Egypt">June 21: New Zealand vs. Egypt</option>
+                        <option value="June 24: Switzerland vs. Canada">June 24: Switzerland vs. Canada (Canada Plays!)</option>
+                        <option value="June 26: New Zealand vs. Belgium">June 26: New Zealand vs. Belgium</option>
+                        <option value="Other Match / Knockouts">Other Match / Knockouts</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-gray-300">Max Guests</label>
+                    <input type="number" id="maxGuests" min="2" max="100" value="10" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-fifaNeon">
+                </div>
+                <button type="submit" class="w-full gradient-bg text-white font-bold py-3 rounded-lg mt-4 hover:opacity-90 transition">
+                    Host Party
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Initial Mock Data (Saved to localStorage so the app actually works locally)
+        const initialParties = [
+            { id: 1, host: "Alex C.", title: "Downtown Rooftop Kickoff", location: "Gastown", match: "June 18: Canada vs. Qatar", maxGuests: 15, currentGuests: 12 },
+            { id: 2, host: "Sarah M.", title: "Backyard Beers & Brats", location: "Kitsilano", match: "June 24: Switzerland vs. Canada", maxGuests: 20, currentGuests: 20 },
+            { id: 3, host: "Commercial Dr Pub", title: "Aussie Night Out", location: "Commercial Drive", match: "June 13: Australia vs. Türkiye", maxGuests: 50, currentGuests: 14 }
+        ];
+
+        // Load from LocalStorage or use defaults
+        let parties = JSON.parse(localStorage.getItem('yvrParties')) || initialParties;
+
+        function saveParties() {
+            localStorage.setItem('yvrParties', JSON.stringify(parties));
+            renderParties();
+        }
+
+        function joinParty(id) {
+            const party = parties.find(p => p.id === id);
+            if (party && party.currentGuests < party.maxGuests) {
+                party.currentGuests++;
+                saveParties();
+                alert(`You are officially registered for: ${party.title}!`);
+            }
+        }
+
+        function renderParties() {
+            const container = document.getElementById('partiesContainer');
+            container.innerHTML = '';
+
+            if(parties.length === 0) {
+                container.innerHTML = '<p class="text-gray-400">No watch parties available yet. Be the first to host one!</p>';
+                return;
+            }
+
+            parties.reverse().forEach(party => {
+                const isFull = party.currentGuests >= party.maxGuests;
+                
+                const card = document.createElement('div');
+                card.className = "bg-slate-800 border border-slate-700 rounded-2xl p-6 hover:border-slate-500 transition flex flex-col";
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-slate-900 text-fifaNeon text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-futbol mr-1"></i> ${party.match}</span>
+                        <span class="text-sm text-gray-400"><i class="fas fa-map-marker-alt"></i> ${party.location}</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">${party.title}</h3>
+                    <p class="text-gray-400 text-sm mb-6">Hosted by <span class="text-white font-semibold">${party.host}</span></p>
+                    
+                    <div class="mt-auto pt-4 border-t border-slate-700 flex justify-between items-center">
+                        <div class="text-sm">
+                            <span class="${isFull ? 'text-red-400' : 'text-green-400'} font-bold">${party.currentGuests}</span>
+                            <span class="text-gray-500">/ ${party.maxGuests} spots filled</span>
+                        </div>
+                        <button onclick="joinParty(${party.id})" 
+                                class="${isFull ? 'bg-slate-700 text-gray-500 cursor-not-allowed' : 'bg-white text-black hover:bg-gray-200'} px-5 py-2 rounded-lg font-bold transition"
+                                ${isFull ? 'disabled' : ''}>
+                            ${isFull ? 'Waitlist' : 'RSVP Now'}
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Handle Form Submission
+        document.getElementById('hostForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newParty = {
+                id: Date.now(),
+                host: document.getElementById('hostName').value,
+                title: document.getElementById('partyTitle').value,
+                location: document.getElementById('partyLocation').value,
+                match: document.getElementById('partyMatch').value,
+                maxGuests: parseInt(document.getElementById('maxGuests').value),
+                currentGuests: 1 // The host counts as 1 guest
+            };
+
+            parties.push(newParty);
+            saveParties();
+            
+            // Reset and close modal
+            this.reset();
+            document.getElementById('hostModal').classList.add('hidden');
+        });
+
+        // Initial Render
+        renderParties();
+    </script>
+</body>
+</html>
